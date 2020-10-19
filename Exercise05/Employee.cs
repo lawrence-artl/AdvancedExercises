@@ -49,5 +49,20 @@ namespace Exercise05
                 Console.WriteLine("{0,-20} {1,1} {2,5:N2} {3,10}", newName, "$", newHourly, newAge);
             }
         }
+        public static void AddEmployee(List<Employee> employees)
+        {
+            Console.WriteLine("Enter a name: ");
+            string newName = Console.ReadLine();
+            Console.WriteLine("Enter their age: ");
+            string strAge = Console.ReadLine();
+            int newAge = Int32.Parse(strAge);
+            Console.WriteLine("Enter their hourly rate: ");
+            string strHourly = Console.ReadLine();
+            double newHourly = Double.Parse(strHourly);
+
+            employees.Add(new Employee() { Name = newName, Age = newAge, Hourly = newHourly });
+
+            Console.WriteLine("Employee " + employees[Employee.Count - 1].Name + " added.");
+        }
     }
 }

@@ -24,26 +24,18 @@ namespace Exercise05
             bool inMenu = true;
             do
             {
-                Console.WriteLine("Add a new employee? y/n");
+                Console.WriteLine("What would you like to do?");
                 string selection = Console.ReadLine();
-                if (selection.Equals("n"))
+                if (selection.Equals("exit"))
                     inMenu = false;
                 else if (selection.Equals("print"))
                     Employee.PrintList(employees);
+                else if (selection.Equals("add"))
+                    Employee.AddEmployee(employees);
+
                 else
                 {
-                    Console.WriteLine("Enter a name: ");
-                    string newName = Console.ReadLine();
-                    Console.WriteLine("Enter their age: ");
-                    string strAge = Console.ReadLine();
-                    int newAge = Int32.Parse(strAge);
-                    Console.WriteLine("Enter their hourly rate: ");
-                    string strHourly = Console.ReadLine();
-                    double newHourly = Double.Parse(strHourly);
-
-                    employees.Add(new Employee() { Name = newName, Age = newAge, Hourly = newHourly });
-
-                    Console.WriteLine("Employee " + employees[Employee.Count - 1].Name + " added.");
+                    Console.WriteLine("That is not a valid selection");
                 }
             } while (inMenu);
 
