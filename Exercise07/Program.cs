@@ -11,6 +11,7 @@ namespace Exercise07
 
             candies.Add(new Candy() { Name = "Snickers", Price = 4.00 });
             candies.Add(new Candy() { Name = "Skittles", Price = 5.50 });
+            candies.Add(new Candy() { Name = "Twix", Price = 7.30 });
 
             Candy.PrintList(candies);
 
@@ -65,6 +66,10 @@ namespace Exercise07
                 else if (selection.Equals("clear"))
                 {
                     Refresh.refreshPage();
+                }
+                else if (selection.Equals("search"))
+                {
+                    Candy.Search(candies);
                 }
                 else
                 {
