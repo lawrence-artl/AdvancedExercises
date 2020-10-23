@@ -71,6 +71,10 @@ namespace Exercise07
                 {
                     Candy.Search(candies);
                 }
+                else if (selection.Equals("remove"))
+                {
+                    Candy.Remove(candies);
+                }
                 else
                 {
                     Console.WriteLine("That was not a valid selection, please try again.");

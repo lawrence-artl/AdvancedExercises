@@ -9,13 +9,10 @@ namespace Exercise07
         private string name;
         private double price;
         public static int count = 0;
-        public static int index = -1;
-
+        
         public Candy()
         {
             count++;
-            index++;
-
         }
         public string Name
         {
@@ -70,8 +67,6 @@ namespace Exercise07
                 selection = selection.Substring(0, 1);
                 if (selection.Equals("n"))
                 {
-                    List<Candy> searchCandy = new List<Candy>();
-                    searchCandy.Add(new Candy() { Name = "null", Price = 0.00 });
                     Console.Write("Enter the name to search for: ");
                     string newName = Console.ReadLine();
                     newName = newName.ToLower();
@@ -85,7 +80,7 @@ namespace Exercise07
                         string queryName = candy.name.ToLower();
                         if (newName.Equals(queryName))
                         {
-                            Console.WriteLine("{0,-20} {1,1} {1,5:N2}", candy.name, "$", candy.price);
+                            Console.WriteLine("{0,-20} {1,1} {2,5:N2}", candy.name, "$", candy.price);
                             searchCount++;
                         }
                     }
@@ -95,13 +90,33 @@ namespace Exercise07
                     if (searchCount == 0)
                     {
                         Console.WriteLine("That query returned no results.");
-                        Console.ReadLine();
-
                     }
                 }
                 else if (selection.Equals("p"))
                 {
+                    Console.Write("Enter the price to search for: ");
+                    string strPrice = Console.ReadLine();
+                    double newPrice = Double.Parse(strPrice);
+                    int searchCount = 0;
+                    Console.WriteLine("{0,-20} {1,8}", "\nCandy", "Price");
+                    Console.WriteLine(new string('-', 28));
 
+                    foreach (var candy in candies)                  //use a foreach loop here instead of a for loop (issues with index values)
+                    {
+                        double queryPrice = candy.price;
+                        if (newPrice.Equals(queryPrice))
+                        {
+                            Console.WriteLine("{0,-20} {1,1} {2,5:N2}", candy.name, "$", candy.price);
+                            searchCount++;
+                        }
+                    }
+                    Console.WriteLine();
+
+
+                    if (searchCount == 0)
+                    {
+                        Console.WriteLine("That query returned no results.");
+                    }
                 }
                 else if (selection.Equals("e"))
                     newSearch = false;
@@ -118,7 +133,62 @@ namespace Exercise07
         }
         public static void Remove(List<Candy> candies)
         {
+            bool newRemove = true;
+            PrintList(candies);
+            do
+            {
+                int[] indexsToRemove = new int[10];
+                int i = 0;
 
+                Console.WriteLine("Remove an item from the list\nType the name of the item to remove: ");
+                string selection = Console.ReadLine();
+                if (selection.Equals("exit"))
+                {
+                    newRemove = false;
+                }
+                else
+                {
+                    selection.ToLower();
+                    int j = 0;                          //index counter
+                    foreach (var candy in candies)      //move through candies one at a time
+                    {
+                        if (selection.Equals(candy.name.ToLower()))         //if the candy matches the query
+                        {
+                            indexsToRemove[i] = j;      //...add it's list index to the array of indexes
+                            i++;                        //move to the next index in array
+                        }
+                        j++;                            //regardless, increase index counter by 1
+                    }
+                    if (i >= 1)                         //even if only one item is found, i should be greater than zero
+                    {
+                        Console.WriteLine("Remove this item:");
+                        for (int k = 0; k < i; k++)     //i is the number of indexes we got to in array
+                        {
+
+                            Console.WriteLine(candies[indexsToRemove[k]].name);     //move through array one index at a time
+                        }
+                        Console.WriteLine("Type 'yes' to confirm (this cannot be undone) ");
+                        string confirm = Console.ReadLine();
+                        if (confirm.ToLower().Equals("yes"))
+                        {
+                            for (int k = 0; k < i; k++)
+                            {
+                                candies.RemoveAt(indexsToRemove[k]);
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                        Console.WriteLine("There was no matches for that search");
+                   
+                    
+                }
+
+
+            } while (newRemove);
         }
     }
 }
