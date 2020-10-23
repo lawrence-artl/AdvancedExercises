@@ -69,6 +69,10 @@ namespace Exercise07
                     Console.ReadKey();
                     Refresh.refreshPage();
                 }
+                else if (selection.Equals("sort"))
+                {
+                    Candy.Sort(candies);
+                }
                 else if (selection.Equals("clear"))
                 {
                     Refresh.refreshPage();

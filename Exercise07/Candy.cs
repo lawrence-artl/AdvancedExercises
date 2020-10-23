@@ -26,6 +26,7 @@ namespace Exercise07
         }
         public static void PrintList(List<Candy> candies)
         {
+            Refresh.refreshPage();
             if (count == 0)
             {
                 Console.WriteLine("There are no items in the list.");
@@ -68,8 +69,7 @@ namespace Exercise07
                 Console.Write("Search by 'name' or by 'price'? ");
                 string selection = Console.ReadLine();
                 selection.ToLower();
-                selection = selection.Substring(0, 1);
-                if (selection.Equals("n"))
+                if (selection.Equals("name"))
                 {
                     Console.Write("Enter the name to search for: ");
                     string newName = Console.ReadLine();
@@ -96,7 +96,7 @@ namespace Exercise07
                         Console.WriteLine("That query returned no results.");
                     }
                 }
-                else if (selection.Equals("p"))
+                else if (selection.Equals("price"))
                 {
                     Console.Write("Enter the price to search for: ");
                     string strPrice = Console.ReadLine();
@@ -122,19 +122,62 @@ namespace Exercise07
                         Console.WriteLine("That query returned no results.");
                     }
                 }
-                else if (selection.Equals("e"))
+                else if (selection.Equals("exit"))
+                {
+                    Refresh.refreshPage();
                     newSearch = false;
-                else if (selection.Equals("c"))
+                }
+                else if (selection.Equals("clear"))
                     Refresh.refreshPage();
                 else
                     Console.WriteLine("That is not a valid selection; please type 'name' or 'price' or 'exit' " + selection);
                
             } while (newSearch);
         }
+        
         public static void Sort(List<Candy> candies)
         {
+            Refresh.refreshPage();
+            Console.WriteLine("SORT THE LIST\n" + new string('-', 28));
+            bool sorting = true;
+            do
+            {
+                Console.WriteLine("Sort this list by 'name' or by 'price' ");
+                string sortSelection = Console.ReadLine();
+                sortSelection.ToLower();
+                if (sortSelection.Equals("exit") || sortSelection.Equals("e"))
+                {
+                    Refresh.refreshPage();
+                    sorting = false;
+                }
+                else if (sortSelection.Equals("name"))
+                {
+                    SortByName sortByName = new SortByName();
+                    candies.Sort(sortByName);
+                    Refresh.refreshPage();
+                    PrintList(candies);
+                }
+                else if (sortSelection.Equals("price"))
+                {
+                    SortByPrice sortByPrice = new SortByPrice();
+                    candies.Sort(sortByPrice);
+                    Refresh.refreshPage();
+                    PrintList(candies);
+                }
+                else
+                {
+                    Console.WriteLine("That is not a valid selection; please type 'name' or 'price' or 'exit'");
+                }
 
+            } while (sorting);
+            
+            
+            
+            
+
+            
         }
+        
         public static void Remove(List<Candy> candies)
         {
             Refresh.refreshPage();
@@ -169,8 +212,7 @@ namespace Exercise07
                         }
                         j++;                            //regardless, increase index counter by 1
                     }
-                    //i--;
-                    if (i >= 1)                         //even if only one item is found, i should be greater than zero
+                   if (i >= 1)                         //even if only one item is found, i should be greater than zero
                     {
                         Console.WriteLine("Remove this item:");
                         for (int k = 0; k < i; k++)     //i is the number of indexes we got to in array
@@ -182,7 +224,6 @@ namespace Exercise07
                         string confirm = Console.ReadLine();
                         if (confirm.ToLower().Equals("yes"))
                         {
-                            //i--;
                             int k = i - 1;
                             do
                             {
@@ -205,5 +246,23 @@ namespace Exercise07
 
             } while (newRemove);
         }
+
+        public class SortByName : IComparer<Candy>
+        {
+            public int Compare(Candy x, Candy y)
+            {
+                return x.Name.CompareTo(y.Name);
+            }
+
+        }
+
+        public class SortByPrice : IComparer<Candy>
+        {
+            public int Compare(Candy x, Candy y)
+            {
+                return x.Price.CompareTo(y.Price);
+            }
+        }
     }
+    
 }
