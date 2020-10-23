@@ -12,12 +12,16 @@ namespace Exercise07
             candies.Add(new Candy() { Name = "Snickers", Price = 4.00 });
             candies.Add(new Candy() { Name = "Skittles", Price = 5.50 });
             candies.Add(new Candy() { Name = "Twix", Price = 7.30 });
+            candies.Add(new Candy() { Name = "Snickers", Price = 8.50 });
 
-            Candy.PrintList(candies);
+
+            //Candy.PrintList(candies);
 
             bool inMenu = true;
             do
             {
+                
+                Console.WriteLine("MAIN MENU\n" + new string('-', 28));
                 Console.WriteLine("Type your selection");
                 string selection = Console.ReadLine();
                 selection.ToLower();
@@ -39,6 +43,7 @@ namespace Exercise07
                         newSelection.Substring(0, 1);
                         if (newSelection.StartsWith("n"))
                         {
+                            Refresh.refreshPage();
                             addMore = false;
                         }
                         else if (newSelection.StartsWith("y"))
@@ -58,6 +63,7 @@ namespace Exercise07
                 else if (selection.Equals("help"))
                 {
                     Refresh.refreshPage();
+                    Console.WriteLine("AVAILABLE COMMANDS\n" + new string('-', 28));
                     Console.WriteLine("Menu Options:\n'Add'\n'Print'\n'Help'\n'Clear'\n'Search'\n'Remove'\n'Exit'\n\n" +
                         "Press any key to clear and continue.");
                     Console.ReadKey();

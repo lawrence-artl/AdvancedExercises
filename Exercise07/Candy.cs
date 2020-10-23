@@ -32,23 +32,27 @@ namespace Exercise07
             }
             else
             {
-                Console.WriteLine("{0,-20} {1,7}", "Candy", "Price");
-                Console.WriteLine(new string('-', 28));
+                Console.WriteLine("{0,-20} {1,7}", "Candy", "Price\n" + new string('-', 28));
+                //Console.WriteLine(new string('-', 28));
                 for (int i = 0; i <= candies.Count - 1; i++)
                 {
                     Console.WriteLine("{0,-20} {1,1} {2,5:N2}", candies[i].Name, "$", candies[i].Price);
                 }
+                Console.WriteLine();
             }
             
 
         }
         public static void Add(List<Candy> candies)
         {
+            Refresh.refreshPage();
+            Console.WriteLine("ADDING AN ITEM\n" + new string('-', 28));
             string newName;
             string strPrice;
             double newPrice;
             Console.Write("Enter a name for the candy: ");
             newName = Console.ReadLine();
+            newName.ToLower();
             newName = char.ToUpper(newName[0]) + newName.Substring(1);      //capitalize first letter of name
             Console.Write("Enter the price for " + newName + ": ");
             strPrice = Console.ReadLine();
@@ -133,6 +137,8 @@ namespace Exercise07
         }
         public static void Remove(List<Candy> candies)
         {
+            Refresh.refreshPage();
+            Console.WriteLine("REMOVING AN ITEM\n" + new string('-', 28));
             bool newRemove = true;
             PrintList(candies);
             do
@@ -146,6 +152,10 @@ namespace Exercise07
                 {
                     newRemove = false;
                 }
+                else if (selection.Equals("clear"))
+                    Refresh.refreshPage();
+                else if (selection.Equals("print"))
+                    PrintList(candies);
                 else
                 {
                     selection.ToLower();
@@ -159,6 +169,7 @@ namespace Exercise07
                         }
                         j++;                            //regardless, increase index counter by 1
                     }
+                    //i--;
                     if (i >= 1)                         //even if only one item is found, i should be greater than zero
                     {
                         Console.WriteLine("Remove this item:");
@@ -171,10 +182,14 @@ namespace Exercise07
                         string confirm = Console.ReadLine();
                         if (confirm.ToLower().Equals("yes"))
                         {
-                            for (int k = 0; k < i; k++)
+                            //i--;
+                            int k = i - 1;
+                            do
                             {
                                 candies.RemoveAt(indexsToRemove[k]);
-                            }
+                                k--;
+                                count--;
+                            } while (k >= 0);
                         }
                         else
                         {
@@ -183,8 +198,8 @@ namespace Exercise07
                     }
                     else
                         Console.WriteLine("There was no matches for that search");
-                   
-                    
+
+
                 }
 
 
