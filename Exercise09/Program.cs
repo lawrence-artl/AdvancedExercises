@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Console;
 
 
 namespace Exercise09
@@ -7,7 +8,14 @@ namespace Exercise09
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            MainProgram myProgram = new MainProgram();
+            myProgram.Start();
+            
+
+
+
         }
+        
     }
 }

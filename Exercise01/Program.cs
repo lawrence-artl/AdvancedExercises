@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;   //for Lists
 
+
+//Creating a list and adding to it
+
 namespace Exercise01
 {
     class Program
